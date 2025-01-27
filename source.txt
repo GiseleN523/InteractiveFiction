@@ -1,0 +1,177 @@
+"Bark" by Gisele Nelson
+
+Release along with an interpreter, a website, cover art("The silhouette of a dog"), an introductory postcard, and the source text.
+
+Chapter 1 - Setup
+
+first_clue_given is a number variable. first_clue_given is 0.
+
+When play begins: 
+	say "You wake up to see that you are still in the house -- as always. It would be nice to get outside for a bit, but first things first: you feel hungry after all that sleeping."
+
+Chapter 2 - Conversation Rules
+
+Interrogative is a kind of value. The interrogatives are who, what, when, where, how, and why.
+Current question is an interrogative that varies.
+
+After asking the stranger about something: respond as Lucky. 
+After answering the stranger that something: respond as Lucky.
+After telling the stranger about something: say "'Sorry, I don't really have time for conversation,' she says, 'but let me know if you want to ask me anything.'";
+After asking Rufus about something: respond as Rufus. 
+After answering Rufus that something: respond as Rufus.
+After telling Rufus about something: respond as Rufus.
+Understand "ask [someone] [text]" as asking it about.
+
+After reading a command:
+	if the player's command includes "[interrogative]", now the current question is the interrogative understood.
+
+To respond as Lucky:
+	if first_clue_given is 1 and the topic understood includes "rufus":
+		say "You know this might be a bad idea, but you can't help yourself. You bring up the topic of Rufus as nonchalantly as you can, the stranger responds as you hoped she would, and Rufus is somehow a lot easier to wake up this time around.";
+		end the story saying "You never did get that snack, but what does the kitchen matter when there is doggy matchmaking to be done?";
+	repeat through the Table of Lucky Answers:
+		if the topic understood includes topic entry:
+			if the current question is the question type entry:
+				say "[reply entry][paragraph break]";
+				if the topic understood includes "door/food/eat/kitchen" and the current question is how:
+					now first_clue_given is 1;
+				rule succeeds;
+	if first_clue_given is 1:
+		say "It doesn't seem like the stranger has anything more to say to you. She's already helped a lot; maybe there's someone else you can talk to for more information on where to get that basket.";
+	otherwise if the player has been in the Yard for 18 turns:
+		say "You receive no response. Try saying 'Ask her how to get into the kitchen.'";
+	otherwise if the player has been in the Yard for 12 turns:
+		say "You can tell she doesn't have anything to say on this topic. Maybe she would be helpful in telling you how to get into the kitchen, though.";
+	otherwise if the player has been in the Yard for 6 turns:
+		say "The stranger looks confused. Maybe try asking her a who/what/where/when/why/how question. Try 'Ask the stranger who she is.'";
+	otherwise:
+		say "The stranger looks confused. 'Sorry, if you don't have anything useful to ask me, I'm a bit busy at the moment,' she says as she goes back to watching the squirrel across the street.";
+	
+To respond as Rufus:
+	if first_clue_given is 1:
+		if the topic understood includes "sleep":
+			say "Rufus opens his eyes, hears the word 'sleep' and takes that as his queue to close them again. In fact, that sounds pretty nice to you too.";
+			end the story saying "You curl up next to Rufus, all thoughts of snacks forgotten, and dream doggy dreams together.";
+		otherwise:
+			repeat through the Table of Rufus Answers:
+				if the topic understood includes topic entry:
+					say "Rufus opens his eyes slowly.";
+					say "[reply entry][paragraph break]";
+					say "Before you can get another word in, he is already back to sleep.";
+					rule succeeds;
+			say "Rufus opens his eyes halfway, looks confused by what you have to say, and goes back to sleep without answering.";
+	otherwise:
+		if first_clue_given is 1 and the player has been in the Bedroom for 10 turns:
+			say "He doesn't respond. Try asking if he knows where the basket is.";
+		otherwise:
+			say "Rufus sleeps on. Maybe there is someone else who would be more helpful.";
+		
+Understand the commands "insult" or "offend" or "reprimand" or "provoke" or "yell" or "bark" as "attack".
+		
+Instead of attacking Rufus:
+	say "Rufus falls back looking hurt for a second but then gets up and jumps at you, the two of you tussling.";
+	say "The water from the shower turns off and the human hurries out of the bathroom. 'Break it up you two! Bad dogs! No walk today, and no treats!'";
+	say "The human pulls you apart from Rufus, grabbing you by the collar and pushing you into the kitchen.";
+	end the story saying "Bad dog??? Not you! At least you finally made it into the kitchen, but it doesn't feel as good as you thought it would...";
+		
+Table of Lucky Answers
+topic	question type	reply
+"basket"	where	"'A basket should do the trick, but I don't know where to find one in your house,' she replies. 'Sorry. Maybe there's someone else you can ask.'"
+"basket"	how	"'A basket should do the trick, but I don't know where to find one in your house,' she replies. 'Sorry. Maybe there's someone else you can ask.'"
+"stranger/you/she/herself/she"	who	"'My name is Lucky' she says."
+"stranger/you/she/herself/she"	what	"'I'm a dog just like you of course,' she says."
+"stranger/you/she/herself/she"	where	"'I'm just out in the neighborhood enjoying myself,' she says. 'Watching squirrels, sniffing interesting smells. I wish you weren't stuck inside and you could join me.'"
+"i/me"	who	"'Why, you're a dog of course,' she says."
+"i/me"	what	"'Why, you're a dog of course,' she says."
+"i/me"	where	"'It looks to me,' she says, 'like you're in your human's house.'"
+"door/kitchen"	what	"'If you can get past the door, the kitchen is a great place,' she replies. 'In fact,' she leans towards you, 'I can tell you how to do it.'"
+"door/food/eat/kitchen"	how	"Her ears perk up at this. 'If you want to get into the kitchen to get food, all you have to do is find something to stand on while you climb up and turn the round part of the door. A basket would be perfect. Just bring it over to the door and it will make you taller; you'll see.'"
+"food/eat"	where	"'You can get food in the kitchen,' she says. 'Important rule of being a dog: never eat dog food when you can eat human food. In fact,' she leans toward you, 'I can tell you how to get in.'"
+"out/outside/fence"	how	"'Sorry,' she says, 'I don't know how to get you out. I do know how to get you into the kitchen, though. It's not the same, but at least that way it won't be quite so bad being stuck here.'"
+"out/outside/fence"	where	"'Sorry,' she says, 'I don't think you can go anywhere besides this yard.'"
+"out/outside/fence"	what	"Oh it's great out here,' she says, 'but unfortunately I don't know how to get you out. I do know how to get you into the kitchen, though. It's not the same, but at least that way it won't be quite so bad being stuck here.'"
+"rufus"	who	"'Rufus? He's the other dog who lives here, right? Actually, isn't he your brother?' she asks. 'The other day I joined him in barking at the mail carrier. It was a lot of fun.'"
+		
+Table of Rufus Answers
+topic	reply
+"basket"	"'The basket? It's right under this bed,' says Rufus."
+"door/food/eat/kitchen"	"'I don't have time to be thinking about food,' says Rufus. 'I was just having a wonderful dream about barking at the mail carrier, and you woke me up!'"
+"out/outside/fence/yard"	"'The yard?' says Rufus. 'Is Lucky out there?' He hastily cleans himself for a moment."
+"lucky/stranger"	"Rufus' ears perk up. 'Lucky! Did you see her? Did she mention me? The other week she happened by when I was barking at the mail carrier and we had a great time together. I wonder if she remembers.'"
+"rufus/you/him/himself/he/brother"	"'Rufus? Rufus...good dog, Rufus good dog, happy dog,' he barks without really waking up."
+
+Chapter 3 - The Bedroom
+
+The Bedroom is a room.
+
+The front door is in the Bedroom. 
+Instead of opening or entering the front door:
+	say "It's too high for you to reach, and appears to be locked. No point in trying."
+
+The bed is an enterable supporter in the Bedroom.
+After entering the bed:
+	say "It's soft and comfortable, but this isn't your bed. You probably shouldn't be here too long." 
+
+Rufus is a person on the bed. The description of Rufus is "Your brother Rufus is curled up on the bed, a mass of thick goldopen  hair."
+Understand "him" and "he" as Rufus.
+
+The bathroom door is in the Bedroom. 
+Instead of opening or entering the bathroom door, say "The door is too high for you to reach. You hear water running. Someone calls from inside the bathroom but the only word you can catch is your name."
+Understand "bathroom" as the bathroom door.
+
+The basket is an openable closed container. It is portable. The basket can be found. It is not found. In the basket are clothes.
+Instead of looking under the bed:
+	if the basket is not found:
+		now the basket is found;
+		now the player carries the basket;
+		say "A closed basket is under the bed. You pick it up.";
+		say "Good idea. Maybe if you go over to the kitchen door carrying this it will actually make you taller."
+
+The clothes are in the basket. They are wearable. 
+After wearing the clothes:
+	say "You look pretty silly, but you put on the clothes the best you can. You still feel hungry." 
+	
+The side door is in the Bedroom. It is an openable door. It is west of the Bedroom and east of the Yard. 
+After opening the side door: 
+	say "Finally, a door you can reach."
+	
+The kitchen door is a closed door. It is east of the Bedroom and west of the Kitchenette.
+Instead of locking or closing the kitchen door:
+	say "It's too high for you to reach."
+Instead of opening the kitchen door:
+	If the basket is found:
+		say "You climb on top of the basket, allowing you to just reach the turny bit of the door and open it!";
+		now the kitchen door is open;
+	otherwise:
+		say "It's too high for you to reach. You have a vague memory of opening this door before, though; how did you do it again?"
+	
+Chapter 4 - The Yard
+
+The Yard is a room. The description is "The small yard is surrounded by a fence, too high for you to get over. You see a stranger just outside the fence. She sees you staring: 'Is there something you wanted to ask?'"
+
+The stranger is a person in the Yard. The description of the stranger is "The stranger is a bit taller than you. She has dark, curly hair."
+Understand "her", "Lucky", "they", "them", and "she" as the stranger.
+
+Chapter 5 - The Kitchenette
+
+The Kitchenette is a room. It is east of the kitchen door.
+
+The stove is in the Kitchenette. It is fixed in place. The description is "It's too high for you to see on top of the stove..."
+
+The sink is in the Kitchenette. It is fixed in place. The description is "It's too high for you to see on top of the sink..."
+
+The fridge is in the Kitchenette. It is fixed in place. 
+The description is "A tall white fridge with good smells coming out of it."
+Instead of opening or entering the fridge: 
+	say "You can't open the fridge. You know this well from experience, but you still couldn't resist trying again.";
+	say "The voice from the bathroom says something, but all you can catch is your name. It doesn't sound too happy.";
+	end the story saying "You hear the bathroom door open. You race back into the bedroom and see -- yes, you're not imagining it! -- The Leash! That can only mean one thing: The Walk! You jump around frenetically as your human tries to put The Leash on you -- why does it always take them so long? -- and race out the door with that crazy pulling at your neck that always accompanies Walks.";
+
+The bowl is a container in the Kitchenette. In the bowl is food.
+
+The food is edible. The food is in the bowl. 
+After eating the food:
+	say "You eat some of the food. It's not the most exciting, but you're not hungry anymore. Still though, not half as good as what you know is in the fridge."
+
+The kitchen window is in the Kitchenette. The description is "This window doesn't have much you can see from where you are, just sky and clouds. Still though, you wish you could be out enjoying the day instead of cooped up here."
+
