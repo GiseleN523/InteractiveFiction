@@ -138,7 +138,7 @@ After opening the side door:
 The kitchen door is a closed door. It is east of the Bedroom and west of the Kitchenette.
 Instead of locking or closing the kitchen door:
 	say "It's too high for you to reach."
-Instead of opening the kitchen door:
+Instead of opening or entering the kitchen door:
 	If the basket is found:
 		say "You climb on top of the basket, allowing you to just reach the turny bit of the door and open it!";
 		now the kitchen door is open;
