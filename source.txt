@@ -142,6 +142,7 @@ Instead of opening or entering the kitchen door:
 	If the basket is found:
 		say "You climb on top of the basket, allowing you to just reach the turny bit of the door and open it!";
 		now the kitchen door is open;
+		now the player is in the Kitchenette;
 	otherwise:
 		say "It's too high for you to reach. You have a vague memory of opening this door before, though; how did you do it again?"
 	
